@@ -1,7 +1,8 @@
 {
   "name": "api-terrarrex",
   "version": "1.0.0",
-  "description": "API TERRAREX",
+  "type": "module",
+  "description": "Repositorio extensible de APIs (YouTube, IA, imágenes, etc)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
