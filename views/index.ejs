@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Api Terrarex</title>
+  <meta name="viewport" content="width=device-width,1">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Api Terrarex</div>
+    <input type="checkbox" id="menu-toggle"/>
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <ul class="menu">
+      <li><a href="#bienvenida">Bienvenida</a></li>
+      <li><a href="#descargas">Descargas</a></li>
+      <li><a href="/endpoints">Endpoints</a></li>
+      <% if (isAdmin) { %>
+        <li><a href="/admin">Admin</a></li>
+      <% } %>
+      <li><a href="/logout">Salir</a></li>
+      <li><button id="statusBtn">Estado</button></li>
+    </ul>
+  </nav>
+  <main>
+    <section id="bienvenida">
+      <h1>¡Bienvenido a Api Terrarex!</h1>
+      <p>Repositorio modular de APIs: descarga música/video de YouTube, IA, imágenes y mucho más.</p>
+      <p>Usuario: <%= user.email %></p>
+    </section>
+    <section id="descargas">
+      <h2>Descargas de YouTube</h2>
+      <p>Descarga audio o video de YouTube usando la API:</p>
+      <pre><code>GET /api/youtube/audio?url=TU_URL
+GET /api/youtube/video?url=TU_URL</code></pre>
+      <p>Ejemplo de uso: <code>/api/youtube/audio?url=https://youtube.com/watch?v=dQw4w9WgXcQ</code></p>
+    </section>
+  </main>
+  <!-- Modal de estado -->
+  <div id="statusmodal-content">
+      <span class="close">&times;</span>
+      <div id="statusContent">Cargando...</div>
+    </div>
+  </div>
+  <script>
+    document.querySelector('.menu-icon').onclick = function() {
+      document.querySelector('.menu').classList.toggle('active');
+    };
+    // Modal de estado
+    const modal = document.getElementById("statusModal");
+    const btn = document.getElementById("statusBtn");
+    const span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+      modal.style.display = "block";
+      fetch('/status').then(res => res.json()).then(data => {
+        document.getElementById('statusContent').innerText = 
+          "Estado: " + data.status + "\nHora: " + new Date(data.timestamp).toLocaleString();
+      });
+    }
+    span.onclick = function() { modal.style.display = "none"; }
+    window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
+  </script>
+</body>
+</html>
