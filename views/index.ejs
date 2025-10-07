@@ -15,10 +15,6 @@
       <li><a href="#bienvenida">Bienvenida</a></li>
       <li><a href="#descargas">Descargas</a></li>
       <li><a href="/endpoints">Endpoints</a></li>
-      <% if (isAdmin) { %>
-        <li><a href="/admin">Admin</a></li>
-      <% } %>
-      <li><a href="/logout">Salir</a></li>
       <li><button id="statusBtn">Estado</button></li>
     </ul>
   </nav>
@@ -26,7 +22,6 @@
     <section id="bienvenida">
       <h1>¡Bienvenido a Api Terrarex!</h1>
       <p>Repositorio modular de APIs: descarga música/video de YouTube, IA, imágenes y mucho más.</p>
-      <p>Usuario: <%= user.email %></p>
     </section>
     <section id="descargas">
       <h2>Descargas de YouTube</h2>
@@ -37,7 +32,8 @@ GET /api/youtube/video?url=TU_URL</code></pre>
     </section>
   </main>
   <!-- Modal de estado -->
-  <div id="statusmodal-content">
+  <div id="statusModal" class="modal">
+    <div id="statusmodal-content">
       <span class="close">&times;</span>
       <div id="statusContent">Cargando...</div>
     </div>
