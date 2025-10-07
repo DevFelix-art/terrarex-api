@@ -5,6 +5,7 @@ const defaultOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
 export class mongoDB {
   constructor(url, options = defaultOptions) {
+
     this.url = url
     this.options = options
     this.data = this._data = {}
@@ -30,7 +31,17 @@ export class mongoDB {
         this._model.findOne({})
       ])
       this._data = _data
-    }docs.data) docs.data = {}
+    } else this.data = this._data.data
+    return this.data
+  }
+
+  write(data) {
+    return new Promise(async (resolve, reject) => {
+      if (!data) return reject(data)
+      if (!this._data) return resolve((new this._model({ data })).save())
+      this._model.findById(this._data._id, (err, docs) => {
+        if (err) return reject(err)
+        if (!docs.data) docs.data = {}
         docs.data = data
         this.data = {}
         return docs.save(resolve)
